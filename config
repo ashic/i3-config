@@ -22,7 +22,9 @@ font pango:FiraCode-Bold 18
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+#font pango:DejaVu Sans Mono, Awesome 18
+#font pango:DejaVu Sans Mono, Awesome 18
+#font pango:Source Code Pro for Powerline 18
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -35,7 +37,7 @@ font pango:FiraCode-Bold 18
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -132,7 +134,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id  "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -184,30 +186,48 @@ hide_edge_borders both
 # finds out, if available)
 #
 bar {
-    font pango:DejaVu Sans Mono, Awesome 18
+    font pango:DejaVu Sans Mono, Awesome 11
+    #font pango:Source Code Pro for Powerline 28
     status_command i3blocks -c ~/.config/i3/i3blocks.conf
     colors {
         background $bar-bg-color
         separator $bg-color
-        #                  border               backbground             text
-        focused_workspace  $bg-color            $bg-color               $focused-text-color
+        #                  border               background             text
+        focused_workspace  $bg-color            $bar-bg-color               $focused-text-color
         inactive_workspace $inactive-bg-color   $inactive-bg-color      $inactive-text-color
         urgent_workspace   $urgent-bg-color     $urgent-bg-color        $text-color
     }
 }
 
-#exec_always gnome-settings-daemon
 
-bindsym XF86AudioRaiseVolume exec amixer -D pulse -q set Master 5%+ unmute
-bindsym XF86AudioLowerVolume  exec amixer -D pulse -q set Master 5%- unmute
-bindsym XF86AudioMute exec amixer -q -D pulse set Master 1+ toggle
+exec_always --no-startup-id gnome-settings-daemon
 
-bindsym $mod+x exec explorer
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse -q set Master 5%+ unmute
+bindsym XF86AudioLowerVolume  exec --no-startup-id amixer -D pulse -q set Master 5%- unmute
+bindsym XF86AudioMute exec --no-startup-id amixer -q -D pulse set Master 1+ toggle
 
-bindsym $mod+Ctrl+l exec scrot /tmp/lock.jpg && convert -resize 1% -resize 10200% /tmp/lock.jpg /tmp/lock.png && rm /tmp/lock.jpg && i3lock -i /tmp/lock.png
-bindsym $mod+Shift+w exec feh --recursive --randomize --bg-scale ~/.config/variety/Downloaded/*
 
-exec_always compton -f
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5 # increase screen brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5 # decrease screen brightness
 
-exec_always --no-startup-id feh --recursive --randomize --bg-scale ~/.config/variety/Downloaded/*
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+#bindsym $mod+x exec --no-startup-id nautilus --browser
+bindsym $mod+x exec --no-startup-id dolphin
+
+#bindsym $mod+Ctrl+l exec --no-startup-id scrot /tmp/lock.jpg && convert -resize 1% -resize 10200% /tmp/lock.jpg /tmp/lock.png && rm /tmp/lock.jpg && i3lock -i /tmp/lock.png
+bindsym $mod+Ctrl+l exec --no-startup-id dm-tool switch-to-greeter
+
+bindsym $mod+Shift+w exec --no-startup-id feh --recursive --randomize --bg-scale /mnt/e/ashic/Pictures/backgrounds/best/*
+
+bindsym $mod+p exec --no-startup-id gnome-screenshot -a --file=/home/ashic/Pictures/capture.png
+
+exec_always --no-startup-id compton -f
+
+exec_always --no-startup-id xrandr --dpi 180
+exec_always --no-startup-id nm-applet
+
+exec_always --no-startup-id feh --recursive --randomize --bg-scale /mnt/e/ashic/Pictures/backgrounds/best/*
 
