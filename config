@@ -232,4 +232,3 @@ exec_always --no-startup-id nm-applet
 exec_always --no-startup-id feh --recursive --randomize --bg-scale /mnt/e/ashic/Pictures/backgrounds/best/*
 
 #exec --no-startup-id dunst -config ~/.dunst
-
