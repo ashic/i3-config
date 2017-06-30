@@ -223,6 +223,8 @@ bindsym $mod+Ctrl+l exec --no-startup-id dm-tool switch-to-greeter
 bindsym $mod+Shift+w exec --no-startup-id feh --recursive --randomize --bg-scale /mnt/e/ashic/Pictures/backgrounds/best/*
 
 bindsym $mod+p exec --no-startup-id gnome-screenshot -a --file=/home/ashic/Pictures/capture.png
+bindsym $mod+Shift+s exec --no-startup-id xrandr --output DP-1 --auto --left-of eDP-1
+bindsym $mod+Control+s exec --no-startup-id xrandr --output DP-1 --off
 
 exec_always --no-startup-id compton -f
 
